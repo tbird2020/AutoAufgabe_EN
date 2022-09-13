@@ -2,83 +2,83 @@
 {
     public class Car
     {
-        //readonly, kommt nur vom konstruktor und soll und darf danach nicht mehr veraendert werden.
+        //readonly, comes only from the constructor and should not and must not be changed afterwards.
         readonly float _maxFuelQuantity;
         readonly float _consumption;
 
-        //(private) klassenvariablen, mit denen gearbeitet wird.
+        //(private) class variables to work with.
         int _mileage;
         float _fillLevel;
         bool _readyToDrive;
 
         /// <summary>
-        /// Default Konstruktor. Erstellt ein neues Auto.
+        /// Default constructor. Creates a new car.
         /// </summary>
         public Car()
         {
         }
 
         /// <summary>
-        /// Erstellt ein neues Auto mit vorgegebenem Tankvolumen (mit vollem Tank) und vorgegebenem Verbrauch
+        /// Creates a new car with given tank volume (with full tank) and given consumption.
         /// </summary>
-        /// <param name="maxFuelQuantity">Kraftstoffmenge, welche in das Auto initial getankt werden soll.</param>
-        /// <param name="consumption">Verbrauch des Autos je 10km</param>
+        /// <param name="maxFuelQuantity">Amount of fuel to be initially filled into the car.</param>
+        /// <param name="consumption">Consumption of the car per 10km</param>
         public Car(int maxFuelQuantity, int consumption)
         {
-            //neues auto -> 0 km.
+            //new car -> 0 km.
             _mileage = 0;
             _maxFuelQuantity = maxFuelQuantity;
 
-            //annahme: tank voll bei erstellen des autos.
+            //assumption: tank full when creating the car.
             _fillLevel = _maxFuelQuantity;
             _consumption = consumption;
 
-            //fahrbereit ist das auto nur, wenn verbrauch und maxKraftstoffmenge auf werte >0 gesetzt sind.
+            //the car is only ready to drive if fuel consumption and max fuel quantity are set to values >0.
             _readyToDrive = maxFuelQuantity > 0 && consumption > 0;
         }
 
         /// <summary>
-        /// Fahren. Macht alles was es braucht, damit ein Auto faehrt.
+        /// Driving. Does everything it takes to make a car drive.
         /// </summary>
-        /// <param name="distance">Distanz, welche gefahren werden soll.</param>
+        /// <param name="distance">Distance to be driven.</param>
         public void Drive(int distance)
         {
             Console.WriteLine($"Das Auto soll {distance} km fahren.");
 
-            //initiale pruefung. kann das auto ueberhaupt fahren (tank nicht leer etc?)
+            //initial check. can the car drive at all (tank not empty etc.)?
             if (!_readyToDrive)
             {
                 Console.WriteLine("Auto ist nicht fahrbereit!");
                 return;
             }
 
-            //lokale variable zum merken, wie viel km der distanz schon gefahren wurden.
+            //local variable to remember how many km of the distance have already been driven.
             int drivenKm = 0;
 
-            //schleife, welche die distanz farhrt. intervall wie vorgegeben
+            //loop which travels the distance. interval 1km.
             while (drivenKm < distance)
             {
-                //wie viele km sind wir von der distanz schon gefahren?
+                //How many kilometers have we driven in terms of distance?
                 drivenKm++;
 
-                //gesamt-km stand erhoehen
+                //total km level increase
                 _mileage++;
 
-                //alle 10km wird die Kraftstoffmenge um den Verbrauch des Autos reduziert (unt ein paar tests durchgefuehrt)
+                //every 10km the amount of fuel is reduced by the consumption of the car (and a few tests are performed).
                 if (_mileage % 10 == 0)
                 {
                     _fillLevel -= _consumption;
 
-                    //falls mal negative tankvolumen auftreten sollten ...
+                    //in case negative tank volumes should occur ...
                     if (_fillLevel < 0) _fillLevel = 0;
 
-                    //wenn nur noch 1/6 der maximalen menge sprit im tank ist, soll eine warnung ausgegeben werden
+                    //when there is only 1/6 of the maximum amount of fuel left in the tank, a warning should be issued
                     if (_fillLevel <= _maxFuelQuantity / 6 && _fillLevel > 0)
                     {
                         Console.WriteLine($"ACHTUNG! Nicht mehr viel Sprit im Tank! ({_fillLevel} liter)");
                     }
 
-                    //wenn tank leer, dann nix mehr fahren. 
+                    //if the tank is empty, you can no longer drive.
                     if (_fillLevel <= 0)
                     {
                         _readyToDrive = false;
@@ -87,14 +87,14 @@
                     }
                 }
 
-                //automatischer statusbericht alle 150km.
+                //automatic status report every 150km.
                 if (_mileage % 150 == 0)
                 {
                     Console.Write("Automatischer ");
                     Status();
                 }
 
-                //bei mehr als 1500km ist der motor kaputt. Das auto ist dann nicht mehr fahrbereit.
+                //at more than 1500km the engine is broken. The car is then no longer ready to drive.
                 if (_mileage >= 1500)
                 {
                     Console.WriteLine("Motor kaputt.");
@@ -108,38 +108,38 @@
         }
 
         /// <summary>
-        /// Erstellt einen Statusbericht
+        /// Creates a status report
         /// </summary>
         public void Status()
         {
-            //einfacher statusbericht. kann wohl noch erweitert werden?
+            //simple status report. can probably be extended?
             Console.WriteLine($"Statusbericht: Das Auto hat einen Kilometerstand von {_mileage} km und es sind {_fillLevel} liter im Tank. Es ist{(_readyToDrive ? "" : " nicht mehr")} fahrbereit.");
         }
 
         /// <summary>
-        /// Tankt das Auto voll. 
+        /// Fills up the car. 
         /// </summary>
         public void Refuel()
         {
             Console.WriteLine($"Es werden {_maxFuelQuantity - _fillLevel}l getankt.");
 
-            //der einfachheit halber wird die kraftstoffmenge auf die maximal moegliche menge gesetzt.
+            //For simplicity, the fuel quantity is set to the maximum possible quantity.
             _fillLevel = _maxFuelQuantity;
 
             Console.WriteLine($"Es sind jetzt wieder {_fillLevel} liter im Tank.");
 
-            //das auto ist fahrbereit, wenn sprit im tank ist.
+            //the car is ready to drive when there is fuel in the tank.
             _readyToDrive = _fillLevel > 0;
         }
 
         /// <summary>
-        /// Tauscht den Motor des Autos. Neuer Motor = Kilometerstand 0.
+        /// Replaces the engine of the car. New engine = mileage 0.
         /// </summary>
         public void TauscheMotor()
         {
             Console.WriteLine("Neuer Motor wird eingebaut. Der Kilometerstand wird daher zurueckgesetzt.");
 
-            //neuer motor -> das auto ist wieder fahrbereit. der kilometerstand des neuen motors betraegt 0km.
+            //new engine -> the car is ready to drive again. the mileage of the new engine is 0km.
             _readyToDrive = true;
             _mileage = 0;
         }

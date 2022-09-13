@@ -8,7 +8,7 @@ namespace Klassenaufgabe
         {
             Console.WriteLine("Erstelle erstes Auto");
 
-            //erstes auto, wird mit 50l getankt und hat einen verbrauch von 4l / 10km.
+            //first car, is filled with 50l and has a consumption of 4l / 10km.
             var firstCar = new Car(50, 4);
             firstCar.Drive(10);
             firstCar.Drive(30);
@@ -27,7 +27,7 @@ namespace Klassenaufgabe
 
             Console.WriteLine("\n\nErstelle zweites Auto");
 
-            //zweites auto. erstellung durch default constructor.
+            //second car. creation by default constructor.
             var secondCar = new Car();
             secondCar.Drive(10);
             secondCar.Drive(30);
