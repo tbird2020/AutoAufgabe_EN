@@ -90,8 +90,8 @@
                 //automatic status report every 150km.
                 if (_mileage % 150 == 0)
                 {
-                    Console.Write("Automatischer ");
-                    Status();
+                    //call method Status with the named parameter to better show why true is passed to the method.
+                    Status(automatic: true);
                 }
 
                 //at more than 1500km the engine is broken. The car is then no longer ready to drive.
@@ -110,10 +110,10 @@
         /// <summary>
         /// Creates a status report
         /// </summary>
-        public void Status()
+        public void Status(bool automatic = false)
         {
             //simple status report. can probably be extended?
-            Console.WriteLine($"Statusbericht: Das Auto hat einen Kilometerstand von {_mileage} km und es sind {_fillLevel} liter im Tank. Es ist{(_readyToDrive ? "" : " nicht mehr")} fahrbereit.");
+            Console.WriteLine($"{(automatic ? "Automatischer " : "")}Statusbericht: Das Auto hat einen Kilometerstand von {_mileage} km und es sind {_fillLevel} liter im Tank. Es ist{(_readyToDrive ? "" : " nicht mehr")} fahrbereit.");
         }
 
         /// <summary>
