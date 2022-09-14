@@ -1,4 +1,4 @@
-﻿namespace Klassenaufgabe
+﻿namespace ClassExercise
 {
     public class Car
     {
