@@ -135,7 +135,7 @@
         /// <summary>
         /// Replaces the engine of the car. New engine = mileage 0.
         /// </summary>
-        public void TauscheMotor()
+        public void ReplaceEngine()
         {
             Console.WriteLine("Neuer Motor wird eingebaut. Der Kilometerstand wird daher zurueckgesetzt.");
 
