@@ -65,7 +65,7 @@
                 _mileage++;
 
                 //every 10km the amount of fuel is reduced by the consumption of the car (and a few tests are performed).
-                if (_mileage % 10 == 0)
+                if (drivenKm % 10 == 0)
                 {
                     _fillLevel -= _consumption;
 
